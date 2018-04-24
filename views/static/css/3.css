@@ -1,0 +1,41 @@
+body{
+    height: 100%;
+}
+nav{
+    padding-left: 1%;
+    padding-right: 0%;
+    width: 100%;
+    display: inline-flex;
+    background-color: rgb(19, 10, 10);
+}
+nav h1{
+    color: aliceblue;
+}
+nav #para{
+    padding-left: 10%;
+    margin-left:45%;
+    margin-right:-35%;
+}
+nav #para a {
+
+    color:white;
+}
+#corps  {
+    padding-top: 1%;
+    text-align: center;
+}
+#corps center p{
+    margin-left:-45%; 
+}
+#corps center form input{
+    margin-left: -48%;
+    width:100px;
+}
+footer h3{
+    margin-top: 23%;
+    padding-top: 1%;
+    color: antiquewhite;
+    background-color:    rgb(19, 10, 10);
+    text-align: center;
+    height: 25px;
+}

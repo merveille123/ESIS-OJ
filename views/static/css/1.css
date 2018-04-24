@@ -1,0 +1,30 @@
+body{
+    height: 100%;
+}
+nav{
+    padding-left: 1%;
+    padding-right: 0%;
+    width: 100%;
+    display: inline-flex;
+    background-color: rgb(13, 49, 47);
+}
+nav h1{
+    color: aliceblue;
+}
+nav #para{
+    padding-left: 10%;
+    margin-left:45%;
+    margin-right:-35%;
+}
+nav #para a {
+
+    color:white;
+}
+footer h3{
+    margin-top: 23%;
+    padding-top: 1%;
+    color: antiquewhite;
+    background-color:   rgb(13, 49, 47);
+    text-align: center;
+    height: 25px;
+}

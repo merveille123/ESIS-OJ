@@ -1,0 +1,48 @@
+body{
+    height: 100%;
+}
+nav{
+    padding-left: 7%;
+    padding-right: 0%;
+    width: 100%;
+    display: -webkit-inline-flex;
+    background-color: rgb(33, 3, 82);
+}
+nav h1{
+    color: aliceblue;
+}
+nav #formulaire #pwd{
+    margin-left: 26%;
+}
+nav #formulaire{
+    color:white;
+    margin-left:45%;
+    margin-right:-35%;
+
+}
+#corps #formulaire h3{
+    color: brown;
+}
+#corps #formulaire #connect{
+    width: 175px;
+}
+#corps{
+    margin-left:12%;
+    display:-webkit-inline-flex;
+}
+#corps #comment{
+    margin-left: -10%;
+    padding-right: 20%;
+}
+#corps #formulaire{
+    margin-right: 0%;
+    padding-left: 65%;
+}
+footer h3{
+    margin-top: 22%;
+    padding-top: 1%;
+    color: antiquewhite;
+    background-color: rgb(33, 3, 82);
+    text-align: center;
+    height: 25px;
+}
