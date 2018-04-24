@@ -1,0 +1,60 @@
+body {
+	background: white;
+}
+.head h1, .head p {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.head p a {
+	text-decoration: none;
+	color: white;
+	padding: 6px;
+}
+.head p a:hover {
+	text-decoration: underline;
+}
+.content {
+	background: white;
+	height: 700px;
+	text-align: justify;
+}
+div .aucune-publication {
+	padding: 0px;
+	margin: 0px;
+	width: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+div .toutes-publications {
+	padding: 0px;
+	margin: 0px;
+	width: 0px;
+	width: 90%;
+	margin:auto;
+	padding: 30px;
+}
+
+div .toutes-publications h2 {
+	margin-bottom: 20px;
+	color: #3383FF;
+}
+
+.toutes-publications a {
+	text-decoration: none;
+	color: #3383FF;
+}
+.toutes-publications a:hover {
+	text-decoration: underline;
+}
+
+.like-dislike {
+	float: right;
+}
+
+.post-like {
+	border-bottom: 1px solid #EAEAEA;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}

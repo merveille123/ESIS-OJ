@@ -1,0 +1,47 @@
+.post-like strong {
+	display: inline; 	
+	color: #3383FF;
+}
+.post-like {
+	border-bottom: 0px;
+	margin-bottom: 0px;	
+}
+.post-content {
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+.toutes-publications h3 {
+	color: #FF3333;
+	margin-bottom: 15px; 	
+}
+.like-dislike-comment {
+	float: right;
+}
+
+.post-like-comment {
+	border-bottom: 1px solid #EAEAEA;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+}
+.add-comment textarea  {
+	min-width: 100%;
+	max-width: 100%;
+	max-height: 100px;
+	min-height: 100px;
+	padding: 10px;
+}
+.add-publication textarea  {
+	min-width: 100%;
+	max-width: 100%;
+	max-height: 200px;
+	min-height: 200px;
+	padding: 10px;
+}
+.add-comment input {
+	height: 25px;
+	width: 100px;
+}
+.add-publication input {
+	height: 25px;
+	width: 100px;
+}

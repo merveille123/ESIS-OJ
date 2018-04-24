@@ -1,0 +1,67 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.head, .content, .foot {
+	width: 900px;
+	margin: auto;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+.head-group {
+	border-bottom: #3383FF solid 3px;
+}
+.head-group, .foot {
+	background:#3383FF ;
+	color: white;
+}
+.head h1, .head form {
+	display: inline-block;
+	vertical-align: top;
+}
+.head h1 {
+	margin-right: 400px;
+}
+.head form label, .head form input {
+	display: inline-block;
+	width: 100px;
+	margin-right: 10px;
+}
+.head form input {
+	height: 20px;
+}
+.head form input[type="submit"] {
+	height: 25px;
+}
+.content {
+	text-align: center;
+}
+.content div {
+	text-align: left;
+	display: inline-block;
+	vertical-align: top;
+	width: 300px;
+	margin: 10px;
+}
+
+.right-content h2 {
+	color: #3383FF;
+	margin-bottom: 15px;
+}
+.content .right-content {
+	margin-left: 150px;
+}
+.content .right-content form input {
+	margin-bottom: 10px;
+	height: 25px;
+	width: 250px;
+}
+.foot {
+	width: 0px;
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	border-top: #3383FF solid 3px;
+}

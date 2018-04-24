@@ -1,38 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="static/css/style.css" >
-    <title>ESIS-OJ</title>
-</head>
-<body>
-    <nav>
-        <h1>ESIS-OJ</h1>
-        <form id="formulaire" action="">
-            <label for="">Matricule</label>
-            <label id="pwd" for="">Mot de passe</label><br>
-            <input type="text">
-            <input type="password">
-            <input type="button" value="connexion" >
-        </form>
-    </nav>
-    <div id="corps">
-        <div id="comment" >
-            <h4> ESIS-OJ est un un journal libre  <br>ouvert à tous les etudiants de l'ESIS<br>  poster 100 informations,recommadation<br>  ou des informations 
-             </h4>
-    </div>
-        <form id="formulaire" action="">
-                <h3> creer un compte</h3>
-                <input type="text" name="matricule" placeholder="matricule" ><br>
-                <br> <input type="password" name="motdepasse" placeholder="mot de passe" ><br>
-                <br><input type="password" name="motdepasse" placeholder=" cofirmer mot de passe" ><br>
-                <br><input type="button" value="creer un compte" id="connect" >
-        </form>
-    </div>
-    <footer> 
-        <h3>ESIS-OJ &copy 2018</h3>
-    </footer>
-</body>
+<!doctype html>
+<?php
+	session_start();
+	if(isset($_SESSION['matricule'])) {
+		header('Location: today.php');
+	}
+?>
+<!doctype html>
+<html>
+	<head>
+		<title>ESIS-OJ</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="static/css/style.css" />
+	</head>
+	<body>
+		<div class="head-group">
+			<div class="head">
+				<h1>ESIS-OJ</h1>
+				<form method="post" action="../controllers/new_connexion.php">
+					<label>Matricule:</label>
+					<label>Mot de passe:</label><br />
+					<input type="text" name="matricule" required/>
+					<input type="password" name="pwd" required/>
+					<input type="submit" value="Connexion" /><br/>
+					<?php 
+						if(isset($_GET['error'])) {
+							if($_GET['error'] == 3)
+								echo '<em style="color:yellow">Matricule ou mot de passe incorrect</em>';
+						}
+					?>
+				</form>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left-content">
+				<p>
+					ESIS-OJ est un journal libre ouvert à tous les étudiants
+					de l'ESIS. <br /><br />Poster vos appréciations ou critiques, récommandations ou informations.
+				</p>
+			</div>
+			<div class="right-content">
+				<h2>Créer un compte</h2>
+				<form method="post" action="../controllers/add_compte.php">
+					<?php 
+						if(isset($_GET['error'])) {
+							if($_GET['error'] == 1)
+								echo '<em style="color:red">Les deux mots de passe ne sont pas identiques!</em>';
+						}
+					?>
+					<input type="text" name="matricule" placeholder="Matricule" required/><br />
+					<input type="password" name="pwd" placeholder="Mot de passe" required/><br />
+					<input type="password" name="pwdconf" placeholder="Confirmer mot de passe" required/><br />
+					<input type="submit" value="Créer un compte" />
+				</form>
+			</div>
+		</div>
+		
+		<?php include_once('foot.php'); ?>
+	</body>
 </html>
