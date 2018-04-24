@@ -1,4 +1,11 @@
 <!doctype html>
+<?php 
+//session_start();
+require_once('check_connexion.php');
+require_once('../models/dao/connexiondb.class.php');
+require_once('../models/dao/publication.dao.php');
+
+?>
 <html>
 	<head>
 		<title>ESIS-OJ</title>
@@ -21,61 +28,26 @@
 		</div>
 		<div class="content">
 			<div class="toutes-publications">
-				<h2>Toutes les publications</h2>
-				<p class="post-content">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero...
-					<a href="suite.php">Lire la suite</a>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<p>
-					<?php 
-						    require_once('../controllers/new_connexion.php');
-							$req="SELECT * FROM publication WHERE publication.idEtudaint=etudiant.id";
-							$data=dbquery($req);
-						
-							while($d= $data->fetch())
-							{
-								echo '
-								 <p class="idee">
-								 <strong>['.$d['nom'].'] </strong> : '.$d['contenu'].'<br>
-								 <em class="dp" >Postee le '.$d['date'].'</em>
-								</p>';
-							}
-					
-					   		echo '<a href="suite.php">Lire la suite</a>';
-					?>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero...
-					<a href="suite.php">Lire la suite</a>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
+			<h2>Toutes les publications</h2>
+			<?php
+			   $pubDao=new PublicationDao();
+			   $data=$pubDao->getAllPublication();
+			   while ($ligne=$data->fetch()){
+					echo "	<p class='post-content'>".
+					 getPartOfPublication($ligne['contenu'])."...
+					<a href='suite.php?idPub=".$ligne['id']."'>Lire la suite</a>
+					<br/>
+					<p class='post-like'>
+						<em>Posté le ".$ligne['date']."</em> 
+						<span class='like-dislike'>
+							<a href='../contollers/like.php?pg=all&idPub=".$ligne['id']."'>Like</a>(".$ligne['nblike'].") | 
+							<a href='../contollers/dislike.php?pg=all&idPub=".$ligne['id']."'>Dislike</a>(".$ligne['nbdislike'].")
+						</span>
+					</p>
+				</p>";
+			   }	
+			?>
+				
 			</div>
 		</div>
 		<div class="foot">

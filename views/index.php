@@ -16,7 +16,7 @@
 		<div class="head-group">
 			<div class="head">
 				<h1>ESIS-OJ</h1>
-				<form method="post" action="../controllers/new_connexion.php">
+				<form method="post" action="../contollers/new_connexion.php">
 					<label>Matricule:</label>
 					<label>Mot de passe:</label><br />
 					<input type="text" name="matricule" required/>
