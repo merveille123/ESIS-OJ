@@ -1,3 +1,10 @@
+<?php require_once('check_connexion.php'); 
+	 require_once('../models/structure/publication.class.php');
+	 require_once('../models/dao/connexiondb.class.php');
+	 require_once('../models/dao/publication.dao.php');
+	 require_once('../models/dao/commentaire.dao.php');
+	 require_once('../models/structure/commentaire.class.php');
+?>
 <!doctype html>
 <html>
 	<head>
@@ -8,77 +15,59 @@
 		<link rel="stylesheet" href="static/css/suite.css" />
 	</head>
 	<body>
-		<div class="head-group">
-			<div class="head">
-				<h1>ESIS-OJ</h1>
-				<p>
-					<a href="today.php">Today</a>|
-					<a href="all.php">All</a>|
-					<a href="new.php">New</a>|
-					<a href="top10.php">Top10</a>|
-					<a href="deconnexion.php">Deconnexion</a>
-				</p>
-			</div>
-		</div>
+		<?php include_once('head.php'); 
+		 if(isset($_GET['idPublication'])){
+			$id=$_GET['idPublication'];
+			$pubDao=new PublicationDao();
+			$comDao=new CommentaireDao();
+			$commentaire=$comDao->getAllCommentaires($id);
+			$publication=$pubDao->getPublication($id);
+			$compte=$comDao->compteCommentaire($id);
+		 }
+		?>
 		<div class="content">
 			<div class="toutes-publications">
 				<p class="post-like">
-					<strong><em>Posté le 02/10/2018</em></strong> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
+				<?php
+				 echo"
+					<strong><em>Posté le ".$publication->getDate()."</em></strong> 
+					<span class='like-dislike'>
+					<a href='../contollers/like.php?pg=suite&idPublication=".$id."'>Like</a>(".$publication->getNbLike().") | 
+					<a href='../contollers/dislike.php?pg=suite&idPublication=".$id."'>Dislike</a>(".$publication->getNbDislike().")
 					</span>
 				</p>
-				<p class="post-content">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.
-					Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.
-					Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.
-					Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.
-					Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.
-				</p>
-				<h3>2 Commentaires</h3>
-				<p class="post-content-comment">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero
-				</p>
-				<br/>
-				<p class="post-like-comment">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike-comment">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<p class="post-content-comment">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero
-				</p>
-				<br/>
-				<p class="post-like-comment">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike-comment">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<form method="post" action="" class="add-comment">
+				<p class='post-content'>".$publication->getContenu()."
+					
+				</p>";
+				
+				echo" <h3>".$compte." Commentaires</h3>";
+				
+				    while($ligne=$commentaire->fetch()){
+						echo "<p class='post-content-comment'>".$ligne['contenu']."</p><br/>
+							<p class='post-like-comment'>
+							<em>Posté." .$ligne['date']."</em> 
+							<span class='like-dislike-comment'>
+								<a href='../contollers/like.php?num=".$id."&id=".$ligne['id']."'>Like</a>(".$ligne['nblike'].") | 
+								<a href='../contollers/dislike.php?num=".$id."&id=".$ligne['id']."'>Dislike</a>(".$ligne['nbdislike'].")
+							</span>
+						</p>
+						
+						";
+					}
+				?>
+            
+				<div id="commentaire">
+				<form method="post" action="../contollers/add_commentaire.php" class="add-comment">
 					<textarea name="contenu" placeholder="Votre commentaire ici" required></textarea><br />
+					<?php echo '<input type="hidden" name="idPublication" value="'.$id.'" />';?>
 					<input type="submit" value="Ajouter" />
 				</form>
+				</div>
 			</div>
 		</div>
-		<div class="foot">
-			<p>
-				ESIS-OJ &copy 2018
-			</p>
-		</div>
+		<footer>
+		<?php include_once('foot.php'); ?>
+		</footer>
+		
 	</body>
 </html>

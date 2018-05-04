@@ -1,3 +1,7 @@
+<?php require_once('check_connexion.php'); 
+   require_once('../models/dao/connexiondb.class.php');
+   require_once('../models/dao/publication.dao.php');
+?>
 <!doctype html>
 <html>
 	<head>
@@ -7,33 +11,37 @@
 		<link rel="stylesheet" href="static/css/today.css" />
 	</head>
 	<body>
-		<div class="head-group">
-			<div class="head">
-				<h1>ESIS-OJ</h1>
-				<p>
-					<a href="today.php">Today</a>|
-					<a href="all.php">All</a>|
-					<a href="new.php">New</a>|
-					<a href="top10.php">Top10</a>|
-					<a href="deconnexion.php">Deconnexion</a>
-				</p>
-			</div>
-		</div>
-		<div class="content">
-			<div class="aucune-publication">
-				<?php 
-			require_once('../models/dao/connexiondb.class.php');
-				$req='SELECT * FROM publication where id=:id';
-
-				?>
-				<h2>Aucune publication du jour</h2>
-				<br/><a href="new.php">Publier</a>
-			</div>
-		</div>
-		<div class="foot">
-			<p>
-				ESIS-OJ &copy 2018
-			</p>
-		</div>
+	<?php include_once('head.php'); ?>
+		<?php
+		$pubDao=new PublicationDao();
+		$today=$pubDao->toDay();
+		//$echo $today->fetch()[0]['contenu'];
+		if($pubDao->toDay()->fetch()){
+			echo"<div class='content'>
+			<div class='toutes-publications'>";
+					while ($ligne=$today->fetch()){
+						$date=date($ligne['date']);
+						echo "	<p class='post-content'>".
+						getPartOfPublication($ligne['contenu'])."...
+						<a href='suite.php?idPublication=".$ligne['id']."'>Lire la suite</a>
+						<br/>
+						<p class='post-like'>
+							<span class='like-dislike'>
+								<a href='../contollers/like.php?pg=today&idPublication=".$ligne['id']."'>Like</a>(".$ligne['nblike'].") | 
+								<a href='../contollers/dislike.php?pg=today&idPublication=".$ligne['id']."'>Dislike</a>(".$ligne['nbdislike'].")
+							</span>
+						</p>
+					";
+				}
+				echo"</div></div>";
+		}
+		else{
+			require_once('NoPublicationToday.php'); 
+		}
+		?>
+		
+		
+		
+		<?php include_once('foot.php'); ?>
 	</body>
 </html>
