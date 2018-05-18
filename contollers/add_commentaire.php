@@ -19,5 +19,5 @@ if(isset($_POST['id_publication'],$_POST['contenu'])){
     $commentaire_dao = new CommentaireDAO();
     $commentaire_dao->ajouterCommentaire($commentaire);
 }
-header('Location: ../views/suite.php?pid='.$id_publication);
+header('Location: ../views/suite.php?id='.$id_publication);
 ?>

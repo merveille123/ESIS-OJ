@@ -13,7 +13,7 @@
 		<div class="content">
 			<div class="toutes-publications">
 				<h2>Nouvelle publication</h2>
-				<form method="post" action="../contollers/add_post.php" class="add-publication">
+				<form method="post" action="../contollers/add_publication.php" class="add-publication">
 					<textarea name="contenu" placeholder="" required></textarea><br />
 					<input type="submit" value="Publier" />
 				</form>

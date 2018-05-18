@@ -25,14 +25,14 @@ require_once('../models/dao/publication.dao.php');
 					'<p class="post-content">'
 						.$publication['contenu'].
 						'<br/>
-						<a href="suite.php?pid='.$publication['id'].'">Lire la suite</a>
+						<a href="suite.php?id='.$publication['id'].'">Lire la suite</a>
 					</p>
 					<br/>
 					<p class="post-like">
 						<em>Posté le '.$publication['date'].'</em> 
 						<span class="like-dislike">
-							<a href="../controllers/like.php?pid='.$publication['id'].'">Like</a>('.$publication['nblike'].') | 
-							<a href="../controllers/dislike.php?pid='.$publication['id'].'">Dislike</a>('.$publication['nbdislike'].');
+							<a href="../contollers/like.php?id='.$publication['id'].'">Like</a>('.$publication['nblike'].') | 
+							<a href="../contollers/dislike.php?id='.$publication['id'].'">Dislike</a>('.$publication['nbdislike'].');
 						</span>
 					</p>
 					';

@@ -20,16 +20,16 @@ require_once('../models/structure/commentaire.class.php');
 		<div class="content">
 			<div class="toutes-publications">
 				<?php
-				if(isset($_GET['pid'])){
-					$publication = new Publication($_GET['pid'],null,null,null,null,null);
+				if(isset($_GET['id'])){
+					$publication = new Publication($_GET['id'],null,null,null,null,null);
 					$publication_dao = new PublicationDAO();
 					$publication = $publication_dao->getPublication($publication);
 					echo'
 					<p class="post-like">
 						<strong><em>Posté le '.$publication->getDate().'</em></strong> 
 						<span class="like-dislike">
-							<a href="../contollers/like.php?pid='.$publication->getId().'">Like</a>('.$publication->getNblike().') | 
-							<a href="../contollers/dislike.php?pid='.$publication->getId().'">Dislike</a>('.$publication->getNbdislike().')
+							<a href="../contollers/like.php?id='.$publication->getId().'">Like</a>('.$publication->getNblike().') | 
+							<a href="../contollers/dislike.php?id='.$publication->getId().'">Dislike</a>('.$publication->getNbdislike().')
 						</span>
 					</p>
 					<p class="post-content">'
@@ -49,14 +49,14 @@ require_once('../models/structure/commentaire.class.php');
 						<p class="post-like-comment">
 							<em>Posté le '.$commentaire['date'].'</em> 
 							<span class="like-dislike-comment">
-								<a href="../contollers/like.php?cid='.$commentaire['id'].'">Like</a>('.$commentaire['nblike'].') | 
-								<a href="../contollers/dislike.php?cid='.$commentaire['id'].'">Dislike</a>('.$commentaire['nbdislike'].')
+								<a href="../contollers/like.php?id='.$commentaire['id'].'">Like</a>('.$commentaire['nblike'].') | 
+								<a href="../contollers/dislike.php?id='.$commentaire['id'].'">Dislike</a>('.$commentaire['nbdislike'].')
 							</span>
 						</p>';
 					}
 					echo'
-					<form method="post" action="../contollers/add_comment.php" class="add-comment">
-						<input type="hidden" name="id_publication" value="'.$_GET['pid'].'"/>
+					<form method="post" action="../contollers/add_commentaire.php" class="add-comment">
+						<input type="hidden" name="id_publication" value="'.$_GET['id'].'"/>
 						<textarea name="contenu" placeholder="Votre commentaire ici" required></textarea><br />
 						<input type="submit" value="Ajouter" />
 					</form>

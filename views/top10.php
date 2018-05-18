@@ -15,7 +15,7 @@ require_once('../models/dao/publication.dao.php');
 		<?php include_once('head.php'); ?>
 		<div class="content">
 			<div class="toutes-publications">
-				<h2>Top 10</h2>
+				<h2>Top Ten of All</h2>
 				<?php
 				$publication_dao = new PublicationDAO();
 				$res = $publication_dao->top10();
