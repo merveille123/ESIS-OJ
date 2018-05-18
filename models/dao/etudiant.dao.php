@@ -8,7 +8,7 @@
 		}
 		
 		public function seConnecter($etudiant) {
-			$str = "SELECT * FROM etudiant WHERE matricule = :matricule AND pwd =  :pwd";
+			$str = "SELECT * FROM etudiant WHERE matricule = :matricule AND pwd =:pwd";
 			$req = $this->db->prepare($str);
 			$req->execute(array(
 				'matricule' => $etudiant->getMatricule(),

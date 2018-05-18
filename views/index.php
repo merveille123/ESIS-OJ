@@ -40,7 +40,7 @@
 			</div>
 			<div class="right-content">
 				<h2>Créer un compte</h2>
-				<form method="post" action="../controllers/add_compte.php">
+				<form method="post" action="../contollers/add_compte.php">
 					<?php 
 						if(isset($_GET['error'])) {
 							if($_GET['error'] == 1)

@@ -1,3 +1,7 @@
+<?php require_once('check_connexion.php'); 
+   require_once('../models/dao/connexiondb.class.php');
+   require_once('../models/dao/publication.dao.php');
+?>
 <!doctype html>
 <html>
 	<head>
@@ -7,69 +11,39 @@
 		<link rel="stylesheet" href="static/css/today.css" />
 	</head>
 	<body>
-		<div class="head-group">
-			<div class="head">
-				<h1>ESIS-OJ</h1>
-				<p>
-					<a href="today.php">Today</a>|
-					<a href="all.php">All</a>|
-					<a href="new.php">New</a>|
-					<a href="top10.php">Top10</a>|
-					<a href="deconnexion.php">Deconnexion</a>
-				</p>
-			</div>
-		</div>
+		<?php include_once('head.php'); ?>
+		
 		<div class="content">
 			<div class="toutes-publications">
-				<h2>Top 10</h2>
-				<p class="post-content">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero...
-					<a href="suite.php">Lire la suite</a>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero...
-					<a href="suite.php">Lire la suite</a>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas
-					porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, 
-					purus lectus malesuada libero...
-					<a href="suite.php">Lire la suite</a>
-				</p>
-				<br/>
-				<p class="post-like">
-					<em>Posté le 02/10/2018</em> 
-					<span class="like-dislike">
-						<a href="like.php">Like</a>(25) | 
-						<a href="dislike.php">Dislike</a>(1)
-					</span>
-				</p>
+				<h2>Top Ten of All</h2>
+				<?php include_once('head.php'); 
+				$pubDao=new PublicationDao();
+				$top10=$pubDao->top10();
+				
+				if($top10!=null){
+							while ($ligne=$top10->fetch()){
+								echo "	<p class='post-content'>".
+								getPartOfPublication($ligne['contenu'])."...
+								<a href='suite.php?idPublication=".$ligne['id']."'>Lire la suite</a>
+								<br/>
+								<p class='post-like'>
+									<em>Posté le ".$ligne['date']."</em> 
+									<span class='like-dislike'>
+										<a href='../contollers/like.php?pg=top10&idPublication=".$ligne['id']."'>Like</a>(".$ligne['nblike'].") | 
+										<a href='../contollers/dislike.php?pg=top10&idPublication=".$ligne['id']."'>Dislike</a>(".$ligne['nbdislike'].")
+									</span>
+								</p>
+							</p>";
+						}
+				}
+				else{
+					require_once('NoPublicationToday.php'); 
+				}
+				?>
 			</div>
 		</div>
-		<div class="foot">
-			<p>
-				ESIS-OJ &copy 2018
-			</p>
-		</div>
+		
+		<?php include_once('foot.php'); ?>
+		
 	</body>
 </html>

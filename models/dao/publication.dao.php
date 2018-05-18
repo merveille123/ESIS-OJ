@@ -73,7 +73,7 @@
 			}
 			$res=$this->db->prepare($req);
 			$res->execute(array(
-				'idPub'=>$idPublication
+				'idPublication'=>$idPublication
 			));
 			$res->closeCursor();
 		}
