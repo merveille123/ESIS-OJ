@@ -1,4 +1,3 @@
-<!doctype html>
 <?php
 	session_start();
 	if(isset($_SESSION['matricule'])) {
@@ -16,7 +15,7 @@
 		<div class="head-group">
 			<div class="head">
 				<h1>ESIS-OJ</h1>
-				<form method="post" action="../contollers/new_connexion.php">
+				<form method="post" action="../controllers/new_connexion.php">
 					<label>Matricule:</label>
 					<label>Mot de passe:</label><br />
 					<input type="text" name="matricule" required/>
@@ -40,7 +39,7 @@
 			</div>
 			<div class="right-content">
 				<h2>Créer un compte</h2>
-				<form method="post" action="../contollers/add_compte.php">
+				<form method="post" action="../controllers/add_compte.php">
 					<?php 
 						if(isset($_GET['error'])) {
 							if($_GET['error'] == 1)

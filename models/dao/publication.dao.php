@@ -1,92 +1,67 @@
 <?php
 
-	class PublicationDAO {
+	class PublicationDAO{
 		private $db;
 		
-		public function __construct() {
+		public function __construct(){
 			$this->db = ConnexionDB::getConnexion();
 		}
 		
-		public function getPublication($id) 
-		{
-			$req="SELECT * FROM publication where id=:id";
-			$prepare=$this->db->prepare($req);
-			$prepare->execute(array( 'id' =>$id));
-			$data=$prepare->fetch();
-			$publication =new Publication($data['id'],$data['idEtudiant'],$data['contenu'],$data['date'],$data['nblike'],$data['nbdislike']);
-			return $publication;
+		public function getPublication($publication){
+			$str = "SELECT * FROM publication WHERE id = :id";
+			$req = $this->db->prepare($str);
+			$req->bindValue(':id',$publication->getId(),PDO::PARAM_INT);
+			$req->execute();
+			$res = $req->fetch();
+			return new Publication($res['id'],$res['idEtudiant'],$res['contenu'],$res['date'],$res['nblike'],$res['nbdislike']);
+		}
+		
+		public function nouvellePublication($publication){
+			$str = "INSERT INTO publication VALUES(null,:idEtudiant,:contenu,NOW(),0,0)";
+			$req = $this->db->prepare($str);
+			$req->bindValue(':idEtudiant',$publication->getIdEtudiant(),PDO::PARAM_INT);
+			$req->bindValue(':contenu',$publication->getContenu(),PDO::PARAM_STR);
+			$req->execute();
+		}
+		
+		public function top10(){
+			$str = "SELECT * FROM publication ORDER BY nblike DESC LIMIT 10";
+			$req = $this->db->query($str);
+			$req->execute();
+			$res = $req->fetchAll();
+			return $res;
+		}
+		
+		public function getTodayPublication(){
+			$str = "SELECT * FROM publication WHERE DATE_FORMAT(date,'%Y-%m-%d') = CURRENT_DATE() ORDER BY date DESC";
+			$req = $this->db->query($str);
+			$req->execute();
+			$res = $req->fetchAll();
+			return $res;
+		}
 
+		public function getAllPublication(){
+			$str = "SELECT * FROM publication ORDER BY date DESC";
+			$req = $this->db->query($str);
+			$req->execute();
+			$res = $req->fetchAll();
+			return $res;
 		}
 		
-		public function nouvellePublication($publication) {
-
-
-			$req="INSERT INTO publication(id,idEtudiant,contenu,date) values(null,:idEtudiant,:contenu,NOW()) ";
-			$prepare= $this->db->prepare($req);
-			$prepare->execute(array(
-				'idEtudiant'		=>$publication->getIdEtudiant(),
-                'contenu'   =>$publication->getContenu(),
-
-			));
-			if($req){
-				return true;
-			}
-			else{
-				return False;
-			}
-			
+		public function like($publication){
+			$str = "UPDATE publication SET nblike = :nblike WHERE id = :id";
+			$req = $this->db->prepare($str);
+			$req->bindValue(':nblike',$publication->getNblike()+1,PDO::PARAM_INT);
+			$req->bindValue(':id',$publication->getId(),PDO::PARAM_INT);
+			$req->execute();
 		}
 		
-		public function top10() {
-			$req="SELECT * FROM publication ORDER BY nblike desc LIMIT 10";
-			return $this->db->query($req);
+		public function dislike($publication){
+			$str = "UPDATE publication SET nbdislike = :nbdislike WHERE id = :id";
+			$req = $this->db->prepare($str);
+			$req->bindValue(':nbdislike',$publication->getNbdislike()+1,PDO::PARAM_INT);
+			$req->bindValue(':id',$publication->getId(),PDO::PARAM_INT);
+			$req->execute();
 		}
-		public function toDay(){
-			$req="SELECT * FROM publication WHERE DATE(publication.date)=CURDATE() ORDER BY  id desc ";
-			return $this->db->query($req);
-		}
-		
-		public function getAllPublication() {
-			$req ="SELECT * FROM publication ORDER BY date DESC";
-			return $this->db->query($req);
-			
-		}
-		
-		public function like($idPublication,$action) {
-			$req="UPDATE publication SET nblike=nblike+1 WHERE id =:id";
-			if($action=="steal"){
-				$req="UPDATE publication SET nblike=nblike-1 WHERE id =:id";
-			}
-			
-			$res=$this->db->prepare($req);
-			$res->execute(array(
-				'id'=>$idPublication
-			));
-			$res->closeCursor();
-			
-		}
-		
-		public function dislike($idPublication,$action) {
-			$req="UPDATE publication SET nbdislike=nbdislike+1 WHERE id =:id";
-			if($action=="steal"){
-				$req="UPDATE publication SET nbdislike=nbdislike-1 WHERE id =:id";
-			}
-			$res=$this->db->prepare($req);
-			$res->execute(array(
-				'idPublication'=>$idPublication
-			));
-			$res->closeCursor();
-		}
-		
 	}
-	 function getPartOfPublication($contenu){
-		$demiContenu="";
-		$i=0;
-		while ($i< strlen($contenu)/2){
-		  $demiContenu=$demiContenu.$contenu[$i];
-		  $i++;
-		}
-		return $demiContenu;
-	}
-
 ?>

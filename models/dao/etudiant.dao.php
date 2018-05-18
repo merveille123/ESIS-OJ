@@ -1,5 +1,4 @@
 <?php
-
 	class EtudiantDAO {
 		private $db;
 		
@@ -8,7 +7,7 @@
 		}
 		
 		public function seConnecter($etudiant) {
-			$str = "SELECT * FROM etudiant WHERE matricule = :matricule AND pwd =:pwd";
+			$str = "SELECT * FROM etudiant WHERE matricule = :matricule AND pwd =  :pwd";
 			$req = $this->db->prepare($str);
 			$req->execute(array(
 				'matricule' => $etudiant->getMatricule(),
@@ -37,31 +36,15 @@
 			} else {
 				return False;
 			}
-        }
-        public function getEtudiantByMatricule($matricule){
-
-
-			$req='SELECT * FROM etudiant WHERE matricule=:matricule';
-				$prepare=$this->db->prepare($req);
-				$prepare->execute( array('matricule'=>$matricule));
-				$data = $prepare -> fetch();
-				$etudiant =new Etudiant($data['id'],$data['matricule'],$data['pwd']);
-			return $etudiant;       
 		}
-		public function selectId($matricule){
-                $str = "SELECT id FROM etudiant WHERE matricule = :matricule";
-                $req = $this->db->prepare($str);
-                $req->execute(array(
-                    'matricule' => $etudiant->getMatricule()
-                ));
-                while ($res = $req->fetch()) {
-                    $user = $res;
-                }
-                if($user != null) {
-                    return True;
-                } else {
-                    return False;
-            }
-        }
+
+		public function getEtudiant($matricule){
+			$str = "SELECT * FROM etudiant WHERE matricule = :matricule";
+			$req = $this->db->prepare($str);
+			$req->execute(array(':matricule' => $matricule ));
+			$res = $req->fetch();
+			$etudiant = new Etudiant($res['id'],$res['matricule'],$res['pwd']);
+			return $etudiant;
+		}
 	}
 ?>
