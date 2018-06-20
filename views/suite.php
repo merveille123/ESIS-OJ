@@ -48,9 +48,7 @@ require_once('../models/structure/commentaire.class.php');
 						<br/>
 						<p class="post-like-comment">
 							<em>Posté le '.$commentaire['date'].'</em> 
-							<span class="like-dislike-comment">
-								<a href="../contollers/like.php?id='.$commentaire['id'].'">Like</a>('.$commentaire['nblike'].') | 
-								<a href="../contollers/dislike.php?id='.$commentaire['id'].'">Dislike</a>('.$commentaire['nbdislike'].')
+						
 							</span>
 						</p>';
 					}
