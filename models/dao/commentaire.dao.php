@@ -25,9 +25,9 @@ class CommentaireDAO {
 	}
 
 	public function getAllCommentaires($publication){
-		$str = "SELECT * FROM commentaire WHERE idPublication = :idPublication";
+		$str = "SELECT * FROM commentaire WHERE id = :id";
 		$req = $this->db->prepare($str);
-		$req->bindValue(':idPublication',$publication->getId(),PDO::PARAM_INT);
+		$req->bindValue(':id',$publication->getId(),PDO::PARAM_INT);
 		$req->execute();
 		$res = $req->fetchAll();
 		return $res;
