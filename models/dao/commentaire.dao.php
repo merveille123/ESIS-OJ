@@ -13,6 +13,7 @@ class CommentaireDAO {
 		$req->bindValue(':idPublication',$commentaire->getIdPublication(),PDO::PARAM_INT);
 		$req->bindValue(':contenu',$commentaire->getContenu(),PDO::PARAM_STR);
 		$req->execute();
+	
 	}
 	
 	public function getCommentaire($commentaire){
@@ -25,9 +26,9 @@ class CommentaireDAO {
 	}
 
 	public function getAllCommentaires($publication){
-		$str = "SELECT * FROM commentaire WHERE id = :id";
+		$str = "SELECT * FROM commentaire WHERE idPublication = :idPublication";
 		$req = $this->db->prepare($str);
-		$req->bindValue(':id',$publication->getId(),PDO::PARAM_INT);
+		$req->bindValue(':idPublication',$publication->getId(),PDO::PARAM_INT);
 		$req->execute();
 		$res = $req->fetchAll();
 		return $res;
