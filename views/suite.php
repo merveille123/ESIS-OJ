@@ -63,6 +63,7 @@ require_once('../models/structure/commentaire.class.php');
 				else
 					header('Location: all.php');
 				?>
+			
 			</div>
 		</div>
 		
