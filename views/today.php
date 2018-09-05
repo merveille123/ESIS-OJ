@@ -19,7 +19,7 @@ require_once('../models/dao/publication.dao.php');?>
 			if (count($res) != 0){
 				echo'
 				<div class="toutes-publications">
-					<h2>Top 10</h2>';
+					<h2>Today</h2>';
 				foreach($res as $publication){
 					echo
 					'<p class="post-content">'
